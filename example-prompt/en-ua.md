@@ -7,7 +7,7 @@ Copy this prompt, answer the questions at the bottom, and paste everything into 
 ## THE PROMPT
 
 ```
-Create a complete single-page website for ESP32 (LittleFS + ESPAsyncWebServer).
+Create a complete single-page modern design website for ESP32 (LittleFS + ESPAsyncWebServer).
 
 **Stack:** index.html + style.css + app.js — vanilla only, no frameworks.
 
