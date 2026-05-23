@@ -1,22 +1,16 @@
 # ESP32 Static Website Host
 
-Host modern static websites directly from an ESP32 using LittleFS.
-
-This project provides a lightweight web server with automatic WiFi configuration via WiFiManager, allowing you to quickly deploy landing pages, dashboards, product showcases, IoT control panels, and other static websites without requiring an external server.
+Host modern static websites directly from an ESP32 using LittleFS — no external server required. The contact form sends messages to Telegram via a bot, with the token stored securely in firmware.
 
 ---
 
 ## Features
 
-- ESP32 Web Server
-- WiFiManager auto-configuration portal
-- LittleFS filesystem support
-- HTML, CSS, JavaScript and image hosting
-- Mobile responsive websites
-- REST API example
-- Fast startup
-- No external backend required
-- Easy website customization
+- Serves HTML, CSS, JS and images from LittleFS
+- Auto WiFi setup via WiFiManager captive portal
+- Contact form → Telegram notifications (token never exposed to browser)
+- Mobile responsive, no frameworks required
+- No external backend or cloud dependency
 
 ---
 
@@ -25,34 +19,60 @@ This project provides a lightweight web server with automatic WiFi configuration
 ```text
 .
 ├── src/
-│   └── main.cpp
+│   └── main.cpp              # Web server + Telegram handler
+├── include/
+│   ├── secrets.h             # Your tokens — never commit this
+│   └── secrets.h.example     # Safe template to commit
 ├── data/
 │   ├── index.html
 │   ├── style.css
 │   ├── app.js
 │   └── img/
 │       ├── hero.webp
-│       ├── image.webp
 │       └── ...
+├── example-prompt/
+│   └── prompt.md             # AI prompt to generate new sites
 └── platformio.ini
 ```
 
-All files inside the `data` directory are uploaded to LittleFS and served by the ESP32.
-
 ---
 
-## AI Website Generation Prompt
+## Telegram Setup
 
-Use promt in project /example-prompt
+The ESP32 sends contact form submissions directly to a Telegram chat.
+
+**1. Create a bot**
+
+Open Telegram, find `@BotFather` and run `/newbot`. Copy the token you receive.
+
+**2. Get your chat ID**
+
+Send any message to your bot, then open in your browser:
+
+```
+https://api.telegram.org/bot<YOUR_TOKEN>/getUpdates
 ```
 
+Find `"chat": { "id": ... }` in the response — that is your chat ID.
+
+Or find chatId bot in telegram.
+
+**3. Fill in `include/secrets.h`**
+
+Copy `secrets.h.example` → `secrets.h` and fill in your values:
+
+```cpp
+#define TELEGRAM_BOT_TOKEN  "123456789:AAxxxxxx..."
+#define TELEGRAM_CHAT_ID    "987654321"
+```
+
+`secrets.h` is in `.gitignore` and will never be committed.
+
 ---
 
-## Build Requirements
+## Getting Started
 
-### PlatformIO
-
-Required libraries:
+**1. Install dependencies**
 
 ```ini
 lib_deps =
@@ -62,21 +82,20 @@ lib_deps =
     tzapu/WiFiManager
 ```
 
----
+**2. Add your secrets**
 
-## Upload Website Files
+```bash
+cp include/secrets.h.example include/secrets.h
+# edit include/secrets.h with your token and chat ID
+```
 
-Upload the contents of the `data` folder to LittleFS:
+**3. Upload the filesystem**
 
 ```bash
 pio run --target uploadfs
 ```
 
----
-
-## Upload Firmware
-
-Flash the firmware to ESP32:
+**4. Flash the firmware**
 
 ```bash
 pio run --target upload
@@ -84,123 +103,69 @@ pio run --target upload
 
 ---
 
-## First Startup
+## First Boot — WiFi Setup
 
-On first boot the ESP32 creates a WiFi configuration access point:
+On first boot the ESP32 creates a WiFi access point:
 
-```text
+```
 Salymka-sait-za-200
 ```
 
----
-
-## Connect ESP32 to WiFi
-
-1. Connect your phone or computer to:
-
-```text
-Salymka-sait-za-200
-```
-
-2. WiFiManager portal should open automatically.
-
-If it does not open, navigate to:
-
-```text
-http://192.168.4.1
-```
-
-3. Select your WiFi network.
-
-4. Enter your WiFi password.
-
-5. Save configuration.
-
-6. The ESP32 will restart and connect to your network.
+Connect to it with your phone or computer. A configuration portal opens automatically — select your network, enter the password, save. The ESP32 restarts and connects.
 
 ---
 
-## Open the Website
+## Finding the IP Address
 
-Open Serial Monitor:
+Open Serial Monitor after boot:
 
 ```bash
 pio device monitor
 ```
 
-After successful connection you should see:
+You will see:
 
-```text
+```
 WiFi Connected!
-192.168.xxx.xxx
-
+192.168.1.xxx
 Server started
-Open:
-http://192.168.xxx.xxx:8090
+http://192.168.1.xxx:8090
 ```
 
-Open the displayed address in your browser.
-
-Example:
-
-```text
-http://192.168.1.105:8090
-```
-
----
-
-### API Example
-
-```http
-GET /api/status
-```
-
-Response:
-
-```json
-{
-  "status": "online"
-}
-```
+Open that address in your browser.
 
 ---
 
 ## Updating the Website
 
-Modify files inside:
-
-```text
-data/
-```
-
-Then upload the filesystem again:
+Edit files in `data/`, then re-upload the filesystem:
 
 ```bash
 pio run --target uploadfs
 ```
 
-Firmware upload is not required unless the source code changes.
+Firmware re-flash is only needed if `main.cpp` changes.
+
+---
+
+## Generating a New Website with AI
+
+A ready-to-use AI prompt is in:
+
+```
+example-prompt/prompt.md
+```
+
+Fill in your business details and paste into Claude (or any AI) to generate a matching `index.html`, `style.css` and `app.js` in one shot.
 
 ---
 
 ## Use Cases
 
-- Landing Pages
-- Product Showcases
-- IoT Dashboards
-- Device Configuration Panels
-- Smart Home Interfaces
-- Portfolio Websites
-- Offline Kiosks
-- Interactive Demonstrations
-- Local Information Displays
+- Landing pages & product showcases
+- Portfolio websites
+- IoT dashboards & device control panels
+- Smart home interfaces
+- Offline kiosks & local info displays
 
 ---
-
-## License
-
-MIT License
-
----
-
-Built with ESP32, LittleFS, ESPAsyncWebServer and WiFiManager.
