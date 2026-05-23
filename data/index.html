@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handwoven</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="cursor"></div>
+
+<header id="header">
+  <div class="container nav">
+    <div class="logo">HANDWOVEN</div>
+    <button id="menuBtn" aria-label="Toggle menu">
+      <span></span><span></span>
+    </button>
+    <nav class="menu" id="menu">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#products">Products</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-bg" style="background-image:url('/img/hero.webp')"></div>
+  <div class="overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Est. 2024 · Handcrafted</p>
+    <h1>The Art of<br><em>Weaving</em></h1>
+    <p class="hero-sub">Traditional artistry meets modern living</p>
+    <a href="#products" class="btn">Explore Collection <span class="btn-arrow">→</span></a>
+  </div>
+  <div class="hero-scroll">scroll</div>
+</section>
+
+<section class="marquee-strip">
+  <div class="marquee-track">
+    <span>Handcrafted</span><span class="dot">·</span>
+    <span>Natural Materials</span><span class="dot">·</span>
+    <span>Artisan Made</span><span class="dot">·</span>
+    <span>Timeless Design</span><span class="dot">·</span>
+    <span>Handcrafted</span><span class="dot">·</span>
+    <span>Natural Materials</span><span class="dot">·</span>
+    <span>Artisan Made</span><span class="dot">·</span>
+    <span>Timeless Design</span><span class="dot">·</span>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="about-label">
+      <span>— About</span>
+    </div>
+    <div class="about-text">
+      <h2>Every basket tells<br><em>a story</em></h2>
+      <p>Each piece is handcrafted with care using traditional weaving methods passed down through generations. We source only the finest natural materials, creating objects that are both beautiful and enduring.</p>
+      <p>Our work is slow, deliberate, and deeply personal — a counterpoint to the disposable world around us.</p>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">— Collection</span>
+      <h2>Featured<br><em>Pieces</em></h2>
+    </div>
+
+    <div class="grid">
+
+      <div class="card" data-index="01">
+        <div class="card-img-wrap">
+          <img src="/img/basket1.webp" alt="Classic Basket" loading="lazy">
+          <div class="card-overlay">
+            <span>View Details</span>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="card-meta">
+            <span class="card-num">01</span>
+            <span class="card-tag">Classic</span>
+          </div>
+          <h3>Classic Basket</h3>
+          <p class="card-price">$45</p>
+        </div>
+      </div>
+
+      <div class="card" data-index="02">
+        <div class="card-img-wrap">
+          <img src="/img/basket2.webp" alt="Artisan Basket" loading="lazy">
+          <div class="card-overlay">
+            <span>View Details</span>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="card-meta">
+            <span class="card-num">02</span>
+            <span class="card-tag">Artisan</span>
+          </div>
+          <h3>Artisan Basket</h3>
+          <p class="card-price">$65</p>
+        </div>
+      </div>
+
+      <div class="card" data-index="03">
+        <div class="card-img-wrap">
+          <img src="/img/basket3.webp" alt="Decor Basket" loading="lazy">
+          <div class="card-overlay">
+            <span>View Details</span>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="card-meta">
+            <span class="card-num">03</span>
+            <span class="card-tag">Décor</span>
+          </div>
+          <h3>Decor Basket</h3>
+          <p class="card-price">$38</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container contact-grid">
+    <div class="contact-info">
+      <span class="section-label">— Contact</span>
+      <h2>Get in<br><em>Touch</em></h2>
+      <p>Interested in a custom piece or have a question? We'd love to hear from you.</p>
+      <div class="contact-detail">
+        <span class="detail-label">Response time</span>
+        <span>Within 24 hours</span>
+      </div>
+    </div>
+    <div class="contact-form-wrap">
+      <div id="form-status" class="form-status" aria-live="polite"></div>
+      <div class="form-group">
+        <label for="fname">Name</label>
+        <input type="text" id="fname" placeholder="Your name">
+      </div>
+      <div class="form-group">
+        <label for="femail">Email</label>
+        <input type="email" id="femail" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label for="fcontact">Phone or Telegram</label>
+        <input type="text" id="fcontact" placeholder="+38099... or @username">
+      </div>
+      <div class="form-group">
+        <label for="fmessage">Message</label>
+        <textarea id="fmessage" rows="5" placeholder="Tell us about your project..."></textarea>
+      </div>
+      <button id="submitBtn" class="btn-submit">
+        <span id="btnText">Send Message</span>
+        <span class="btn-arrow">→</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-logo">HANDWOVEN</div>
+    <p class="footer-copy">© 2024 Handwoven. All rights reserved.</p>
+    <p class="footer-esp">Served from ESP32</p>
+  </div>
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>
