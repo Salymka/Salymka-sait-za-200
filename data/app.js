@@ -1,7 +1,3 @@
-// ── CONFIG ──────────────────────────────────────────────
-const TELEGRAM_BOT_TOKEN = '8837848065:AAGAlja-DFSQVYwj6nXK7RceYb_cEQXFI4M';
-const TELEGRAM_CHAT_ID   = '525534862';
-// ────────────────────────────────────────────────────────
 
 // Custom cursor
 const cursor = document.querySelector('.cursor');
@@ -63,7 +59,7 @@ fetch('/api/status')
   .then(d => console.log('ESP32:', d.status))
   .catch(() => {});
 
-// Contact form -> Telegram
+// Contact form → /api/contact (ESP32 forwards to Telegram internally)
 const submitBtn = document.getElementById('submitBtn');
 const btnText   = document.getElementById('btnText');
 const status    = document.getElementById('form-status');
@@ -89,30 +85,16 @@ submitBtn.addEventListener('click', async () => {
     return;
   }
 
-  submitBtn.disabled = true;
+  submitBtn.disabled  = true;
   btnText.textContent = 'Sending...';
   setStatus('Sending your message...', 'sending');
 
-  const text =
-    '*New message — Handwoven*\n\n' +
-    '*Name:* ' + name + '\n' +
-    '*Email:* ' + email + '\n' +
-    (contact ? '*Phone / Telegram:* ' + contact + '\n' : '') +
-    '\n*Message:*\n' + message;
-
   try {
-    const res = await fetch(
-      'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage',
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id:    TELEGRAM_CHAT_ID,
-          text:       text,
-          parse_mode: 'Markdown'
-        })
-      }
-    );
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, contact, message })
+    });
 
     const data = await res.json();
 

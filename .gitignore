@@ -1,5 +1,8 @@
-.pio
+.pio/
 .vscode/
+# Secrets — never commit, copy from secrets.h.example
+include/secrets.h
 lib/
+include/README
 test/
-include/
+platformio.zip
